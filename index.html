@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SingStar Party</title>
+<link rel="stylesheet" href="style7.css">
+</head>
+
+<body>
+
+<header>
+  <h1>SingStar Party</h1>
+  <button id="settingsBtn" class="settings-btn" title="Name / Party ändern">⚙️</button>
+
+  <div class="controls">
+    <button id="btn-interpret" class="active">🎤 Interpret</button>
+    <button id="btn-cd">💿 CD</button>
+    <button id="btn-song">🔤 Song</button>
+    <input id="search" placeholder="🔍 Suche nach Song, Interpret oder CD">
+  </div>
+</header>
+
+<!-- JOIN MODAL -->
+<div id="joinOverlay" class="join-overlay" aria-hidden="true">
+  <div class="join-card">
+    <h2>🎉 Party beitreten</h2>
+    <p style="margin-top:0; opacity:.85;">Gib deinen Namen und den Party-Code ein.</p>
+
+    <label class="join-label">Dein Name</label>
+    <input id="joinName" class="join-input" placeholder="z.B. Max" autocomplete="name" maxlength="24">
+
+    <label class="join-label">Party-Code</label>
+    <input id="joinCode" class="join-input" placeholder="z.B. PARTY1" autocomplete="off" maxlength="16">
+
+    <div class="join-actions">
+      <button id="joinBtn" class="join-btn">Join</button>
+      <button id="createBtn" class="join-btn secondary">Neue Party</button>
+    </div>
+
+    <div id="joinStatus" class="join-status"></div>
+  </div>
+</div>
+
+<main class="dashboard">
+  <!-- Links: Bibliothek -->
+  <section class="katalog">
+    <div id="liste" class="song-list"></div>
+
+    <div class="spotify-widget" id="spotifyWidget">
+      <h2>Spotify Player</h2>
+      <div id="spotifyPlayer">Wähle einen Song</div>
+    </div>
+  </section>
+
+  <!-- Rechts: Queue -->
+  <aside class="right-panel queue-view">
+    <div class="selection">
+      <h2>Upcoming Next</h2>
+      <div id="auswahlListe" class="queue-songs"></div>
+    </div>
+  </aside>
+</main>
+
+<nav class="bottom-nav">
+  <button data-view="alleSongs" class="active">
+    🎵<span>Alle Songs</span>
+  </button>
+  <button data-view="queue">
+    🎤<span>Line-Up</span>
+  </button>
+</nav>
+
+<div id="toastContainer" class="toast-container"></div>
+
+<!-- Supabase UMD -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Init JS -->
+<script type="module" src="js/init.js"></script>
+</body>
+</html>

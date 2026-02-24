@@ -1,0 +1,547 @@
+/* =================== Viewport-Layout: Body scrollt NICHT =================== */
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #121212;
+  color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Seite scroll aus */
+}
+
+/* =================== Header =================== */
+header {
+  padding: 16px;
+  background: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  position: relative;
+}
+
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.controls button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #2c2c2c;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.controls button.active,
+.controls button:hover {
+  background: #1db954;
+}
+
+.controls input {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  flex: 1;
+  min-width: 200px;
+  background: #2c2c2c;
+  color: #fff;
+}
+
+.settings-btn{
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: none;
+  background: #2c2c2c;
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+
+  z-index: 3000;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+
+
+/* =================== JOIN MODAL =================== */
+.join-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  padding: 16px;
+}
+
+.join-overlay.active {
+  display: flex;
+}
+
+.join-card {
+  width: 100%;
+  max-width: 420px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.7);
+}
+
+.join-card h2 {
+  margin: 0 0 8px 0;
+}
+
+.join-label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  opacity: 0.85;
+  font-size: 0.9rem;
+}
+
+.join-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: #111;
+  color: #fff;
+  outline: none;
+}
+
+.join-input:focus {
+  border-color: rgba(29, 185, 84, 0.45);
+}
+
+.join-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.join-btn {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #1db954;
+  color: #08150d;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.join-btn.secondary {
+  background: #2c2c2c;
+  color: #fff;
+}
+
+.join-status {
+  margin-top: 10px;
+  min-height: 18px;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* =================== Dashboard Layout (nimmt Resthöhe ein) =================== */
+.dashboard {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+
+  overflow: hidden; /* main scroll aus */
+}
+
+/* =================== Links: Katalog (nur #liste scrollt) =================== */
+.katalog {
+  flex: 2 1 60%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+#liste {
+  flex: 1;
+  overflow-y: auto; /* scroll an */
+  min-height: 0;
+}
+
+/* =================== Rechts: Panel (Queue scrollt innen) =================== */
+.right-panel {
+  flex: 1 1 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* =================== Alphabet Label =================== */
+.alpha-label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  padding: 4px 8px;
+  margin: 8px 0 4px 0;
+  border-left: 2px solid #1db954;
+  position: sticky;
+  top: 0;
+  background: #121212;
+  z-index: 10;
+  transition: background 0.3s, color 0.3s, opacity 0.3s;
+}
+
+.alpha-label.sticky-active {
+  background: #1e1e1e;
+  color: #1db954;
+  opacity: 1;
+}
+
+/* =================== CD Cards =================== */
+.cd-group {
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cd-group.collapsed ul {
+  display: none;
+}
+
+.cd-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: default;
+  font-weight: 600;
+}
+
+.cd-header span {
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+.cd-header button {
+  background: #2c2c2c;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cd-header button:hover {
+  background: #1db954;
+}
+
+/* =================== Songs =================== */
+ul.song-list-ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+
+li.song-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+li.song-item:hover {
+  background: #2c2c2c;
+}
+
+.song-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.song-number {
+  font-size: 0.8rem;
+  color: #aaaaaa;
+  width: 24px;
+  text-align: right;
+}
+
+.song-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.song-title {
+  font-weight: 500;
+}
+
+.song-interpret {
+  font-size: 0.8rem;
+  color: #aaaaaa;
+}
+
+/* Queue "added by" */
+.song-addedby {
+  font-size: 0.75rem;
+  color: #9aa3a0;
+  margin-top: 2px;
+}
+
+/* =================== Song Actions =================== */
+.song-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.song-actions button {
+  background: #2c2c2c;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.song-actions button:hover {
+  background: #1db954;
+}
+
+.song-actions button.remove:hover {
+  background: #f44336;
+}
+
+/* =================== Queue Panel =================== */
+.selection {
+  background: #1e1e1e;
+  padding: 12px;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+  overflow: hidden; /* selection scroll aus */
+  min-height: 0;
+}
+
+.selection h2 {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #1e1e1e;
+  padding: 8px 12px;
+  margin: 0;
+}
+
+/* NUR die Queue-Liste scrollt */
+#auswahlListe {
+  flex: 1;
+  overflow-y: auto; /* scroll an */
+  min-height: 0;
+}
+
+/* =================== Spotify Player =================== */
+.spotify-widget {
+  background: linear-gradient(180deg, #1a2a22 0%, #16201b 100%);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: left;
+  flex-shrink: 0;
+  margin-top: 12px;
+  border: 1px solid rgba(29, 185, 84, 0.25);
+  box-shadow: 0 -6px 24px rgba(0,0,0,0.6);
+}
+
+.spotify-widget iframe {
+  width: 100%;
+  height: 80px;
+  border: none;
+  border-radius: 6px;
+}
+
+/* Desktop: Spotify unten fest sichtbar */
+.spotify-widget.desktop-docked {
+  margin-top: auto;
+}
+
+/* =================== Mobile =================== */
+@media (max-width: 768px) {
+
+  header{
+  padding-right: 64px; /* Platz fürs Zahnrad, damit nichts drüber liegt */
+}
+  
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  .controls button {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+
+  .controls input {
+    min-width: 150px;
+  }
+
+  .dashboard {
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .katalog, .queue-view {
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    height: calc(100vh - 100px - 64px);
+    min-height: 0;
+  }
+
+  .katalog.active, .queue-view.active {
+    display: flex;
+  }
+
+  /* Spotify: fixiert über der Auswahlleiste (Bottom Nav) */
+  .spotify-widget.mobile-fixed {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 64px;
+    z-index: 2000;
+    margin-top: 0;
+  }
+
+  /* Platz schaffen, damit letzte Songs nicht unter Spotify verschwinden */
+  #liste {
+    padding-bottom: 140px;
+  }
+
+  .bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: #1e1e1e;
+    border-top: 1px solid #2c2c2c;
+    z-index: 1000;
+  }
+
+  .bottom-nav button {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bottom-nav button.active {
+    color: #1db954;
+  }
+}
+
+/* Desktop: verhindert umbrechen der Spalten */
+@media (min-width: 769px) {
+  .bottom-nav {
+    display: none;
+  }
+  .dashboard {
+    flex-wrap: nowrap;
+  }
+}
+
+/* =================== Toast Feedback =================== */
+.toast-container {
+  position: fixed;
+  left: 50%;
+  bottom: 90px; /* über Bottom-Nav / Spotify */
+  transform: translateX(-50%);
+  z-index: 4000;
+  pointer-events: none;
+}
+
+.toast {
+  background: rgba(30, 30, 30, 0.95);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+
+  animation: toast-float 1.6s ease forwards;
+}
+
+.toast.success {
+  border-color: rgba(29, 185, 84, 0.6);
+}
+
+.toast.delete {
+  border-color: rgba(244, 67, 54, 0.6);
+}
+
+@keyframes toast-float {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.98);
+  }
+}
